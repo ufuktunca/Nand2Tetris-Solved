@@ -1,0 +1,28 @@
+// This file is part of the materials accompanying the book 
+// "The Elements of Computing Systems" by Nisan and Schocken, 
+// MIT Press. Book site: www.idc.ac.il/tecs
+// File name: projects/03/b/RAM512.hdl
+
+/**
+ * Memory of 512 registers, each 16 bit-wide. Out holds the value
+ * stored at the memory location specified by address. If load==1, then 
+ * the in value is loaded into the memory location specified by address 
+ * (the loaded value will be emitted to out from the next time step onward).
+ */
+
+CHIP RAM512 {
+    IN in[16], load, address[9];
+    OUT out[16];
+
+    PARTS:
+    DMux8Way(in=load,sel[2]=address[8],sel[1]=address[7],sel[0]=address[6],a=oa,b=ob,c=oc,d=od,e=oe,f=of,g=og,h=oh);
+    RAM64(in=in,load=oa,address[5]=address[5],address[4]=address[4],address[3]=address[3],address[2]=address[2],address[1]=address[1],address[0]=address[0],out=a64);
+    RAM64(in=in,load=ob,address[5]=address[5],address[4]=address[4],address[3]=address[3],address[2]=address[2],address[1]=address[1],address[0]=address[0],out=b64);
+    RAM64(in=in,load=oc,address[5]=address[5],address[4]=address[4],address[3]=address[3],address[2]=address[2],address[1]=address[1],address[0]=address[0],out=c64);
+    RAM64(in=in,load=od,address[5]=address[5],address[4]=address[4],address[3]=address[3],address[2]=address[2],address[1]=address[1],address[0]=address[0],out=d64);
+    RAM64(in=in,load=oe,address[5]=address[5],address[4]=address[4],address[3]=address[3],address[2]=address[2],address[1]=address[1],address[0]=address[0],out=e64);
+    RAM64(in=in,load=of,address[5]=address[5],address[4]=address[4],address[3]=address[3],address[2]=address[2],address[1]=address[1],address[0]=address[0],out=f64);
+    RAM64(in=in,load=og,address[5]=address[5],address[4]=address[4],address[3]=address[3],address[2]=address[2],address[1]=address[1],address[0]=address[0],out=g64);
+    RAM64(in=in,load=oh,address[5]=address[5],address[4]=address[4],address[3]=address[3],address[2]=address[2],address[1]=address[1],address[0]=address[0],out=h64);
+    Mux8Way16(sel[2]=address[8],sel[1]=address[7],sel[0]=address[6],a=a64,b=b64,c=c64,d=d64,e=e64,f=f64,g=g64,h=h64,out=out);
+}

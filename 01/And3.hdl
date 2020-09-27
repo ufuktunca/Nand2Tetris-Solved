@@ -1,0 +1,19 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/And16.hdl
+
+/**
+ * 16-bit bitwise And:
+ * for i = 0..15: out[i] = (a[i] and b[i])
+ */
+
+CHIP And3 {
+    IN a,b,c;
+    OUT out;
+
+    PARTS:
+    // Put your code here:
+    And(a=a,b=b,out=out1);
+    And(a=out1,b=c,out=out);
+}
